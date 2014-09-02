@@ -1,0 +1,52 @@
+/*
+
+This file is part of Ship Multi-Instrument
+
+Copyright(C) 2014  Carsten Agerskov
+
+This program is free software : you can redistribute it and / or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#ifndef _ROLLINGLOG_H
+#define _ROLLINGLOG_H
+
+#include <WString.h>
+#include <Arduino.h>
+
+#define LOG_SIZE 10
+
+#define READ_READY 0
+#define WRITE_READY 1
+
+class RollingLog {
+	int maxSentenceLength;
+        String inputLog[LOG_SIZE];
+        unsigned long timeStamp[LOG_SIZE];
+        boolean rwStatus[LOG_SIZE];
+        char endSentenceChar1;
+		char endSentenceChar2;
+		unsigned int writeIndex;
+		unsigned int readIndex;
+        int charIndex;
+        String inStr;
+public:
+	RollingLog(unsigned int, char, char);
+	void writeChar(char);
+	String readMessage();
+    unsigned long readTimeStamp();
+    boolean getRwStatus();
+    void releaseEntry();
+};
+
+#endif
