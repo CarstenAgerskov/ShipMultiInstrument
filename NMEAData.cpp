@@ -29,6 +29,7 @@ NMEAData::NMEAData() {
 	}
 };
 
+/* $WIMWV, 217, R, 13.4, N, A * 0F */
 void NMEAData::nmeaDecode(String nmeaSentence, unsigned long receiveTimeStamp) {
 	int delimiterIndex = nmeaSentence.indexOf(",");
 	if (delimiterIndex == 6 && nmeaSentence.length() > 6 && nmeaSentence.substring(0, 1).equals("$")) {
@@ -104,6 +105,7 @@ void NMEAData::decodeRMC(String nmeaSentence, unsigned long receiveTimeStamp) {
 	t = extractData(nmeaSentence, startIndex);
 };
 
+/*$WIMWV,217,R,13.4,N,A*0F*/
 void NMEAData::decodeMWV(String nmeaSentence, unsigned long receiveTimeStamp) {
 	Serial.println("decode $xxMWV");
 	int startIndex = 6;

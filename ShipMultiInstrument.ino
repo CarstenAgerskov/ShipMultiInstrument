@@ -29,7 +29,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 #define RENDER_INTERVAL 1000
 
-RollingLog rollingLog1(NMEA_MAX_SENTENCE_LENGTH, 13, 13);
+RollingLog rollingLog1(NMEA_MAX_SENTENCE_LENGTH, 13, 10);
 RollingLog rollingLog2(NMEA_MAX_SENTENCE_LENGTH, 13, 10);
 NMEAData nmeaData;
 Display *disp;
@@ -40,7 +40,8 @@ void setup() {
 	pinMode(LED_PIN, OUTPUT);
 	Serial.begin(115200);
 	Serial1.begin(4800);
-	Serial2.begin(4800);
+/*	Serial2.begin(4800); */
+	Serial2.begin(38400);
 	Serial3.begin(115200);
 	Serial.println("hello");
 	delay(2000);
