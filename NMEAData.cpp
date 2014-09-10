@@ -191,13 +191,12 @@ void NMEAData::calculate() {
 	float rws = stringToFloat(value[RWS]);
 	float rwa = stringToFloat(value[RWA]) * 0.0174532925; /* Convert to rad */
 
-	float sog_in_ms = sog * 0.51444444444;
 	/* source http://en.wikipedia.org/wiki/Apparent_wind */
-	float tws = sqrt(rws*rws + sog_in_ms*sog_in_ms - 2 * rws*sog_in_ms*cos(rwa));
+	float tws = sqrt(rws*rws + sog*sog - 2 * rws*sog*cos(rwa));
 	float twa = 0;
 
 	if (tws > 0.2) {
-		twa = acos((rws*cos(rwa) - sog_in_ms) / tws) * 57.2957795; /* Convert to deg */
+		twa = acos((rws*cos(rwa) - sog) / tws) * 57.2957795; /* Convert to deg */
 	}
 	else {
 		tws = 0;
