@@ -3,6 +3,8 @@ ShipMultiInstrument
 
 Receive and display ship information from multiple serial NMEA sources.
 
+This code is intended for Arduino Mega (2560). The Arduino will display the ship information on a LCD display, the project Wiki describes the details and the wiring.
+
 The overall purpose of this instrument is collect data from multiple NMEA enabled transducers, and to display both the collected data, and data calculated based on the collected data. 
 
 Furthermore, the instrument could:
