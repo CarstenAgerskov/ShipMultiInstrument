@@ -21,17 +21,16 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #ifndef _ROLLINGLOG_H
 #define _ROLLINGLOG_H
 
-#include <WString.h>
 #include <Arduino.h>
 
 #define LOG_SIZE 10
+#define MAX_SENTENCE_LENGTH 82
 
 #define READ_READY 0
 #define WRITE_READY 1
 
 class RollingLog {
-	int maxSentenceLength;
-        String inputLog[LOG_SIZE];
+		char inputLog[LOG_SIZE][MAX_SENTENCE_LENGTH];
         unsigned long timeStamp[LOG_SIZE];
         boolean rwStatus[LOG_SIZE];
         char endSentenceChar1;
@@ -39,11 +38,10 @@ class RollingLog {
 		unsigned int writeIndex;
 		unsigned int readIndex;
         int charIndex;
-        String inStr;
 public:
-	RollingLog(unsigned int, char, char);
+	RollingLog(char, char);
 	void writeChar(char);
-	String readMessage();
+	char * readMessage();
     unsigned long readTimeStamp();
     boolean getRwStatus();
     void releaseEntry();

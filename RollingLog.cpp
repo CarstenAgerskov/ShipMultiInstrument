@@ -20,39 +20,44 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 #include "RollingLog.h"
 
-RollingLog::RollingLog(unsigned int a, char b, char c) {
-	maxSentenceLength = a;
+RollingLog::RollingLog(char b, char c) {
 	endSentenceChar1 = b;
 	endSentenceChar2 = c;
 	writeIndex = 0;
 	readIndex = 0;
+	charIndex = 0;
 
 	for (int i; i < LOG_SIZE; i++) {
-		inputLog[i].reserve(maxSentenceLength);
 		rwStatus[i] = WRITE_READY;
-		inputLog[i] = "";
 	}
 }
 
 void RollingLog::writeChar(char inChar) {
 
 	if (rwStatus[writeIndex] == WRITE_READY) {
-		if (inputLog[writeIndex].length() < maxSentenceLength - 1) {
-			if (inChar != endSentenceChar1 && inChar != endSentenceChar2) {
-				inputLog[writeIndex] += inChar;
-			}
-			if (inChar == endSentenceChar2) {
-				timeStamp[writeIndex] = millis();
-				rwStatus[writeIndex] = READ_READY;
-				writeIndex++;
-				if (writeIndex >= LOG_SIZE) writeIndex = 0;
+		if (charIndex != MAX_SENTENCE_LENGTH - 1) {
+			if (!(charIndex == 0 && inChar == endSentenceChar2)) {
+				inputLog[writeIndex][charIndex] = inChar;
+				charIndex = charIndex + 1;
+				if (inChar == endSentenceChar2) {
+					if (inputLog[writeIndex][charIndex - 1] == endSentenceChar1) {
+						timeStamp[writeIndex] = millis();
+						rwStatus[writeIndex] = READ_READY;
+						writeIndex++;
+						charIndex = 0;
+						if (writeIndex >= LOG_SIZE) writeIndex = 0;
+					}
+					else {
+						Serial.println("Sentence missing endSentenceChar1");
+						charIndex = 0;
+					}
+				}
 			}
 		}
 		else
 		{
-			Serial.println("NMEA sentence too long, received:");
-			Serial.println(inputLog[writeIndex]);
-			inputLog[writeIndex] = "";
+			Serial.println("Sentence too long, each line can only hold MAX_SENTENCE_LENGTH characters");
+			charIndex = 0;
 		}
 	}
 	else {
@@ -60,7 +65,7 @@ void RollingLog::writeChar(char inChar) {
 	}
 }
 
-String RollingLog::readMessage() {
+char * RollingLog::readMessage() {
 	return inputLog[readIndex];
 }
 
@@ -73,7 +78,6 @@ boolean RollingLog::getRwStatus() {
 }
 
 void RollingLog::releaseEntry() {
-	inputLog[readIndex] = "";
 	rwStatus[readIndex] = WRITE_READY;
 	readIndex = readIndex + 1;
 	if (readIndex >= LOG_SIZE) readIndex = 0;
