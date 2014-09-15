@@ -40,7 +40,7 @@ void RollingLog::writeChar(char inChar) {
 				inputLog[writeIndex][charIndex] = inChar;
 				charIndex = charIndex + 1;
 				if (inChar == endSentenceChar2) {
-					if (inputLog[writeIndex][charIndex - 1] == endSentenceChar1) {
+					if (inputLog[writeIndex][charIndex - 2] == endSentenceChar1) {
 						timeStamp[writeIndex] = millis();
 						rwStatus[writeIndex] = READ_READY;
 						writeIndex++;
