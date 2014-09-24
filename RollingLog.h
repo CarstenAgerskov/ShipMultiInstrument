@@ -24,7 +24,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 
 #define LOG_SIZE 10
-#define MAX_SENTENCE_LENGTH 82
+#define MAX_SENTENCE_LENGTH 83
 
 #define READ_READY 0
 #define WRITE_READY 1
