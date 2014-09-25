@@ -18,29 +18,34 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _DISPLAY_H
-#define _DISPLAY_H
+#ifndef _SHIPDATA_H
+#define _SHIPDATA_H
 
-#include <Wire.h>
+#include "Configuration.h"
 
-#include <LiquidCrystal_I2C.h>
-#include "ShipData.h"
+#include <WString.h>
+#include <Arduino.h>
 
-#define DISPLAY_LINES 4
-#define DISPLAY_COLUMNS 20
-#define DISPLAY_I2C_ADDRESS  0x3F
+#define MAX_VALUES 15
+#define MAX_NAME_LENGTH 8
+#define MAX_VALUE_LENGTH 10
+#define DEFAULT_VALID_TIME 2000
 
-
-class Display {
-	ShipData *shipData;
-    LiquidCrystal_I2C *lcd;
-    void displayValue(int x, int y, String s);
-  public:
-	Display(ShipData *);
-    void render();
+class ShipData {
+	String name[MAX_VALUES];
+	String value[MAX_VALUES];
+	unsigned long validTime[MAX_VALUES];
+	unsigned long timeStamp[MAX_VALUES];
+	float stringToFloat(String);
+	String floatToString1d(float);
+	String floatToString0d(float);
+	String ktsToMs(String kts);
+public:
+	ShipData();
+	String getValue(int);
+	void setValue(int, String, unsigned long);
+	void calculate();
+	void print();
 };
 
 #endif
-
-
-

@@ -24,10 +24,16 @@
     <ClInclude Include="Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NMEAData.h">
+    <ClInclude Include="RollingLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RollingLog.h">
+    <ClInclude Include="ShipData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NMEA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,10 +41,13 @@
     <ClCompile Include="Display.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NMEAData.cpp">
+    <ClCompile Include="RollingLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RollingLog.cpp">
+    <ClCompile Include="ShipData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NMEA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

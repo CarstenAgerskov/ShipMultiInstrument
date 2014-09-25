@@ -21,7 +21,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include <LiquidCrystal_I2C.h>
 
 #include "RollingLog.h"
-#include "NMEAData.h"
+#include "ShipData.h"
+#include "NMEA.h"
 #include "Display.h"
 
 #define LED_PIN 13
@@ -30,8 +31,9 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 RollingLog rollingLog1(13, 10);
 RollingLog rollingLog2(13, 10);
-NMEAData nmeaData;
+ShipData *shipData;
 Display *disp;
+NMEA * nmea;
 
 unsigned long renderTime = 0;
 
@@ -42,7 +44,9 @@ void setup() {
 	Serial2.begin(38400);
 	Serial3.begin(115200);
 	delay(2000);
-	disp = new Display();
+	shipData = new ShipData();
+	nmea = new NMEA(shipData);
+	disp = new Display(shipData);
 	Serial.println("hello");
 }
 
@@ -52,7 +56,7 @@ void loop() {
 		Serial.print(rollingLog1.readTimeStamp());
 		Serial.print(" Message: ");
 		Serial.println(rollingLog1.readMessage());
-		nmeaData.nmeaDecode(rollingLog1.readMessage(), rollingLog1.readTimeStamp());
+		nmea->nmeaDecode(rollingLog1.readMessage(), rollingLog1.readTimeStamp());
 		Serial3.println(rollingLog1.readMessage());
 		rollingLog1.releaseEntry();
 	}
@@ -61,14 +65,15 @@ void loop() {
 		Serial.print(rollingLog2.readTimeStamp());
 		Serial.print(" Message: ");
 		Serial.println(rollingLog2.readMessage());
-		nmeaData.nmeaDecode(rollingLog2.readMessage(), rollingLog2.readTimeStamp());
+		nmea->nmeaDecode(rollingLog2.readMessage(), rollingLog2.readTimeStamp());
 		Serial3.println(rollingLog2.readMessage());
 		rollingLog2.releaseEntry();
 	}
 
 	if (millis() > renderTime) {
-		nmeaData.calculate();
-		disp->render(&nmeaData);
+		shipData->calculate();
+		shipData->print();
+		disp->render();
 		renderTime = renderTime + RENDER_INTERVAL;
 	}
 }

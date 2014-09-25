@@ -18,29 +18,22 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _DISPLAY_H
-#define _DISPLAY_H
+#ifndef _NMEA_H
+#define _NMEA_H
 
-#include <Wire.h>
-
-#include <LiquidCrystal_I2C.h>
+#include <WString.h>
+#include <Arduino.h>
 #include "ShipData.h"
 
-#define DISPLAY_LINES 4
-#define DISPLAY_COLUMNS 20
-#define DISPLAY_I2C_ADDRESS  0x3F
-
-
-class Display {
+class NMEA {
 	ShipData *shipData;
-    LiquidCrystal_I2C *lcd;
-    void displayValue(int x, int y, String s);
-  public:
-	Display(ShipData *);
-    void render();
+	String extractData(String, int &);
+	void decodeRMC(String, unsigned long);
+	void decodeMWV(String, unsigned long);
+public:
+	NMEA(ShipData *shipData);
+	void nmeaDecode(String, unsigned long);
+	String nmeaEncode(String);
 };
 
 #endif
-
-
-

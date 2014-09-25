@@ -18,17 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _NMEA_H
-#define _NMEA_H
-
-#include <WString.h>
-#include <Arduino.h>
-
-#define MAX_VALUES 15
-#define MAX_NAME_LENGTH 8
-#define MAX_VALUE_LENGTH 10
-#define DEFAULT_VALID_TIME 2000
-
+#ifndef _CONFIGURATION_H
+#define _CONFIGURATION_H
 
 #define SOG 0
 #define UTC 1
@@ -43,25 +34,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #define TCP45 11
 #define TCM45 12
 #define LTZ 13
-
-class NMEAData {
-  String name[MAX_VALUES];
-  String value[MAX_VALUES];
-  unsigned long validTime[MAX_VALUES];  
-  unsigned long timeStamp[MAX_VALUES];  
-  String extractData(String, int &);
-  float stringToFloat(String);
-  String floatToString1d(float);
-  String floatToString0d(float);
-  void decodeRMC(String, unsigned long);
-  void decodeMWV(String, unsigned long);
-public:
-  NMEAData();
-  void nmeaDecode(String, unsigned long);
-  String nmeaEncode(String);
-  String getValue(int);
-  void setValue(int, String);
-  void calculate();
-};
+#define WSU 14
 
 #endif

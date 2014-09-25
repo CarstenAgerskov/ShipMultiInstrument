@@ -19,12 +19,14 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Display.h"
-#include "NMEAData.h"
+#include "Configuration.h"
+
 #include <LiquidCrystal_I2C.h>
 
 #define CLEAR_STR "          "
 
-Display::Display(){
+Display::Display(ShipData *sd){
+  shipData = sd;
   lcd = new LiquidCrystal_I2C (0x3f,20,4);
   lcd->init();
   lcd->init();                      // initialize the lcd 
@@ -41,18 +43,18 @@ void Display::displayValue(int x, int y, String s) {
   lcd->print(s);
 }
 
-void Display::render(NMEAData *nmeaData) {
+void Display::render() {
   displayValue(0,0,"TWS");
-  displayValue(4, 0, nmeaData->getValue(TWS));
+  displayValue(4, 0, shipData->getValue(TWS));
   displayValue(10,0,"TWA");
-  displayValue(14,0, nmeaData->getValue(TWA));
+  displayValue(14,0, shipData->getValue(TWA));
   displayValue(0, 1, "C-45");
-  displayValue(5, 1, nmeaData->getValue(TCM45));
+  displayValue(5, 1, shipData->getValue(TCM45));
   displayValue(10, 1, "C+45");
-  displayValue(15, 1, nmeaData->getValue(TCP45));
+  displayValue(15, 1, shipData->getValue(TCP45));
   displayValue(0, 2, "M10");
-  displayValue(4,2, nmeaData->getValue(MWS10));
+  displayValue(4,2, shipData->getValue(MWS10));
   displayValue(10, 2, "MAXTWS60");
   displayValue(0,3,"XXX");
-  displayValue(10,3,nmeaData->getValue(LTZ));
+  displayValue(10,3,shipData->getValue(LTZ));
 }

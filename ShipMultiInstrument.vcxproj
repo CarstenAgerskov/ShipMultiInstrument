@@ -73,21 +73,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Configuration.h" />
     <ClInclude Include="Display.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="NMEAData.h">
+    <ClInclude Include="NMEA.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="RollingLog.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="ShipData.h" />
     <ClInclude Include="Visual Micro\.ShipMultiInstrument.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
-    <ClCompile Include="NMEAData.cpp" />
+    <ClCompile Include="NMEA.cpp" />
     <ClCompile Include="RollingLog.cpp" />
+    <ClCompile Include="ShipData.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
