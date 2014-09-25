@@ -35,6 +35,7 @@ class Display {
 	ShipData *shipData;
     LiquidCrystal_I2C *lcd;
     void displayValue(int x, int y, String s);
+	char displayBuffer[DISPLAY_LINES*DISPLAY_COLUMNS+1];
   public:
 	Display(ShipData *);
     void render();
