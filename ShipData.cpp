@@ -26,8 +26,8 @@ ShipData::ShipData() {
 		value[i] = "";
 		validTime[i] = DEFAULT_VALID_TIME;
 		timeStamp[i] = 0;
-		approxMaxTimeFilter10m = new ApproxMaxTimeFilter(10);
-		approxMaxTimeFilter60m = new ApproxMaxTimeFilter(6);
+		approxMaxTimeFilter10m = new ApproxMaxTimeFilter(10,60000);
+		approxMaxTimeFilter60m = new ApproxMaxTimeFilter(6,600000);
 	}
 };
 
@@ -104,10 +104,12 @@ void ShipData::calculate() {
 	timeStamp[TWA] = millis();
 
 	approxMaxTimeFilter10m->putValue(stringToFloat(value[TWS]));
-	
 	value[MWS10] = floatToString1d(approxMaxTimeFilter10m->getMax());
 	timeStamp[MWS10] = millis();
 
+	approxMaxTimeFilter60m->putValue(stringToFloat(value[TWS]));
+	value[MWS60] = floatToString1d(approxMaxTimeFilter60m->getMax());
+	timeStamp[MWS60] = millis();
 
 	float hh = stringToFloat(value[UTC].substring(0, 2));
 	hh = hh + 2;

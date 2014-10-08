@@ -24,15 +24,15 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include <Arduino.h>
 
 #define MAX_TIME_FILTER_LENGTH 10
-#define TIME_SLOT_MILLIS 60000
 
 class ApproxMaxTimeFilter {
 	float timeFilter[MAX_TIME_FILTER_LENGTH];
 	unsigned long windIntervalTimeStamp;
 	int windIntervalIndex;
 	int filterLength;
+	unsigned long timeSlotMillis;
 public:
-	ApproxMaxTimeFilter(int);
+	ApproxMaxTimeFilter(int, unsigned long);
 	void putValue(float);
 	float getMax();
 };

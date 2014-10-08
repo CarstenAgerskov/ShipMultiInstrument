@@ -20,21 +20,22 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 #include "ApproxMaxTimeFilter.h"
 
-ApproxMaxTimeFilter::ApproxMaxTimeFilter(int l) {
+ApproxMaxTimeFilter::ApproxMaxTimeFilter(int l, unsigned long t) {
 	filterLength = l;
+	timeSlotMillis = t;
 	for (int i = 0; i < filterLength; i++) {
 		timeFilter[i] = 0;
 	}
-	windIntervalTimeStamp = 0;
+	windIntervalTimeStamp = millis() + timeSlotMillis;
 	windIntervalIndex = 0;
 }
 
 void ApproxMaxTimeFilter::putValue(float value) {
-	if (millis() > windIntervalTimeStamp + TIME_SLOT_MILLIS) {
+	if (millis() > windIntervalTimeStamp) {
 		windIntervalIndex = windIntervalIndex + 1;
 		if (windIntervalIndex == filterLength) windIntervalIndex = 0;
 		timeFilter[windIntervalIndex] = 0;
-		windIntervalTimeStamp = millis();
+		windIntervalTimeStamp = millis() + timeSlotMillis;
 	}
 	if (value > timeFilter[windIntervalIndex]) {
 		timeFilter[windIntervalIndex] = value;

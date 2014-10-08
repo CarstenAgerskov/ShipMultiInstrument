@@ -72,7 +72,6 @@ void loop() {
 
 	if (millis() > renderTime) {
 		shipData->calculate();
-		shipData->print();
 		disp->render();
 		renderTime = renderTime + RENDER_INTERVAL;
 	}
