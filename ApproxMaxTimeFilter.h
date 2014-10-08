@@ -18,37 +18,24 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _SHIPDATA_H
-#define _SHIPDATA_H
+#ifndef _APPROX_MAX_TIME_FILTER_H
+#define _APPROX_MAX_TIME_FILTER_H
 
-#include "Configuration.h"
-#include "ApproxMaxTimeFilter.h"
-
-#include <WString.h>
 #include <Arduino.h>
 
-#define MAX_VALUES 15
-#define MAX_NAME_LENGTH 8
-#define MAX_VALUE_LENGTH 10
-#define DEFAULT_VALID_TIME 2000
+#define MAX_TIME_FILTER_LENGTH 10
+#define TIME_SLOT_MILLIS 60000
 
-class ShipData {
-	String name[MAX_VALUES];
-	String value[MAX_VALUES];
-	unsigned long validTime[MAX_VALUES];
-	unsigned long timeStamp[MAX_VALUES];
-	float stringToFloat(String);
-	String floatToString1d(float);
-	String floatToString0d(float);
-	String ktsToMs(String kts);
-	ApproxMaxTimeFilter *approxMaxTimeFilter10m;
-	ApproxMaxTimeFilter *approxMaxTimeFilter60m;
+class ApproxMaxTimeFilter {
+	float timeFilter[MAX_TIME_FILTER_LENGTH];
+	unsigned long windIntervalTimeStamp;
+	int windIntervalIndex;
+	int filterLength;
 public:
-	ShipData();
-	String getValue(int);
-	void setValue(int, String, unsigned long);
-	void calculate();
-	void print();
+	ApproxMaxTimeFilter(int);
+	void putValue(float);
+	float getMax();
 };
+
 
 #endif

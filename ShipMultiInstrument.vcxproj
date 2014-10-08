@@ -73,6 +73,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ApproxMaxTimeFilter.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Display.h">
       <FileType>CppCode</FileType>
@@ -87,6 +88,7 @@
     <ClInclude Include="Visual Micro\.ShipMultiInstrument.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ApproxMaxTimeFilter.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="NMEA.cpp" />
     <ClCompile Include="RollingLog.cpp" />
@@ -95,4 +97,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.upload.port="COM3" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

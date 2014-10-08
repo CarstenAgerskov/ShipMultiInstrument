@@ -46,6 +46,8 @@ void serialEvent2();
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h"
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h" 
 #include "C:\Users\Carsten\Documents\Arduino\ShipMultiInstrument\ShipMultiInstrument.ino"
+#include "C:\Users\Carsten\Documents\Arduino\ShipMultiInstrument\ApproxMaxTimeFilter.cpp"
+#include "C:\Users\Carsten\Documents\Arduino\ShipMultiInstrument\ApproxMaxTimeFilter.h"
 #include "C:\Users\Carsten\Documents\Arduino\ShipMultiInstrument\Configuration.h"
 #include "C:\Users\Carsten\Documents\Arduino\ShipMultiInstrument\Display.cpp"
 #include "C:\Users\Carsten\Documents\Arduino\ShipMultiInstrument\Display.h"
