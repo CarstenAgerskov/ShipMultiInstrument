@@ -27,7 +27,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include <WString.h>
 #include <Arduino.h>
 
-#define MAX_VALUES 15
+/* MAX_VALUES is the maximum number of different values, as defined in Configuration.h */
+#define MAX_VALUES 16
 #define MAX_NAME_LENGTH 8
 #define MAX_VALUE_LENGTH 10
 #define DEFAULT_VALID_TIME 2000
@@ -40,7 +41,9 @@ class ShipData {
 	float stringToFloat(String);
 	String floatToString1d(float);
 	String floatToString0d(float);
+	float lastTWS;
 	String ktsToMs(String kts);
+	float ktsToMs(float kts);
 	ApproxMaxTimeFilter *approxMaxTimeFilter10m;
 	ApproxMaxTimeFilter *approxMaxTimeFilter60m;
 public:

@@ -49,7 +49,8 @@ void Display::render() {
 	memcpy(&displayBuffer[2 * DISPLAY_COLUMNS + 4], shipData->getValue(MWS10).c_str(), shipData->getValue(MWS10).length());
 	memcpy(&displayBuffer[2 * DISPLAY_COLUMNS + 10], "M60", 3);
 	memcpy(&displayBuffer[2 * DISPLAY_COLUMNS + 14], shipData->getValue(MWS60).c_str(), shipData->getValue(MWS10).length());
-	memcpy(&displayBuffer[3 * DISPLAY_COLUMNS + 0], "XXX", 3);
+	memcpy(&displayBuffer[3 * DISPLAY_COLUMNS + 0], "VMGW", 4);
+	memcpy(&displayBuffer[3 * DISPLAY_COLUMNS + 5], shipData->getValue(VMGW).c_str(), shipData->getValue(VMGW).length());
 	memcpy(&displayBuffer[3 * DISPLAY_COLUMNS + 10], shipData->getValue(LTZ).c_str(), shipData->getValue(LTZ).length());
 	displayBuffer[DISPLAY_LINES*DISPLAY_COLUMNS] = '\0';
 	lcd->setCursor(0, 0);

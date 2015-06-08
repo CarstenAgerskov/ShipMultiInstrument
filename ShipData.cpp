@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #include "ShipData.h"
 
 ShipData::ShipData() {
+	lastTWS = 0;
 	for (int i = 0; i < MAX_VALUES; i++) {
 		value[i].reserve(MAX_VALUE_LENGTH);
 		value[i] = "";
@@ -80,6 +81,11 @@ String ShipData::ktsToMs(String kts) {
 	return floatToString1d(fKts*0.514);
 }
 
+float ShipData::ktsToMs(float kts) {
+	return kts*0.514;
+}
+
+
 void ShipData::calculate() {
 	float sog = stringToFloat(value[SOG]);
 	float rws = stringToFloat(value[RWS]);
@@ -96,18 +102,28 @@ void ShipData::calculate() {
 		tws = 0;
 	}
 
+	tws = ktsToMs(tws);
 
-	value[TWS] = ktsToMs(floatToString1d(tws));
+	value[TWS] = floatToString1d(tws);
 	timeStamp[TWS] = millis();
 
 	value[TWA] = floatToString1d(twa);
 	timeStamp[TWA] = millis();
 
-	approxMaxTimeFilter10m->putValue(stringToFloat(value[TWS]));
+	if ( tws > lastTWS  ) {
+		float tmp = tws;
+		tws = lastTWS;
+		lastTWS = tmp;
+	}
+	else {
+	  lastTWS = tws;
+	}
+
+	approxMaxTimeFilter10m->putValue(tws);
 	value[MWS10] = floatToString1d(approxMaxTimeFilter10m->getMax());
 	timeStamp[MWS10] = millis();
 
-	approxMaxTimeFilter60m->putValue(stringToFloat(value[TWS]));
+	approxMaxTimeFilter60m->putValue(tws);
 	value[MWS60] = floatToString1d(approxMaxTimeFilter60m->getMax());
 	timeStamp[MWS60] = millis();
 
@@ -125,6 +141,7 @@ void ShipData::calculate() {
 	if (tcm45 < 0) tcm45 = tcm45 + 360;
 	value[TCM45] = floatToString0d(tcm45);
 
+    value[VMGW] = floatToString1d(sog * cos(twa * 0.0174532925));
 }
 
 

@@ -35,5 +35,5 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 #define TCM45 12
 #define LTZ 13
 #define WSU 14
-
+#define VMGW 15
 #endif
